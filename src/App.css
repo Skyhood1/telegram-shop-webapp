@@ -1,3 +1,5 @@
+/* src/App.css */
+
 .App {
   display: flex;
   flex-direction: column;
@@ -59,3 +61,4 @@ h1 {
 .buy-button:hover {
   background-color: #2563eb; /* blue-600 */
 }
+
