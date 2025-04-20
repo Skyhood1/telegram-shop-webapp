@@ -1,80 +1,55 @@
 import { useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "./App.css";
 
-const tg = window.Telegram && window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp;
 
 const products = [
   {
     id: 1,
-    name: "Dior Forever Skin Contour Stick — Цвет 1 Light",
-    price: 4728.02,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "Dior Forever Skin Contour",
+    price: 4728,
+    image: "https://www.sephora.com/productimages/sku/s2649007-main-zoom.jpg"
   },
   {
     id: 2,
-    name: "YSL Make Me Blush 24H Buildable Powder Blush — Цвет 44",
-    price: 9000,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "YSL пудра 44",
+    price: 4728,
+    image: "https://www.sephora.com/productimages/sku/s2648074-main-zoom.jpg"
   },
   {
     id: 3,
-    name: "YSL Make Me Blush 24H Buildable Powder Blush — Цвет 87",
-    price: 9000,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "Gisou trio set",
+    price: 9750,
+    image: "https://www.sephora.com/productimages/sku/s2847390-main-zoom.jpg"
   },
   {
     id: 4,
-    name: "YSL Make Me Blush 24H Buildable Powder Blush — Цвет 93",
-    price: 9000,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "Контуринг Charlotte Fair",
+    price: 4728,
+    image: "https://www.sephora.com/productimages/sku/s2648108-main-zoom.jpg"
   },
   {
     id: 5,
-    name: "Gisou Trio Set",
-    price: 9750,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "Пудра Charlotte Fair",
+    price: 4728,
+    image: "https://www.sephora.com/productimages/sku/s2779205-main-zoom.jpg"
   },
   {
     id: 6,
-    name: "Charlotte Tilbury Hollywood Contour Wand — Цвет Fair",
-    price: 1500,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "Dior Forever Skin Stick 1N",
+    price: 6194,
+    image: "https://www.sephora.com/productimages/sku/s2789188-main-zoom.jpg"
   },
   {
     id: 7,
-    name: "Charlotte Tilbury Airbrush Flawless Finish Setting Powder — Цвет 1 Fair",
-    price: 2000,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
-  },
-  {
-    id: 8,
-    name: "Charlotte Tilbury Airbrush Flawless Finish Setting Powder — 100 ml",
-    price: 3500,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
-  },
-  {
-    id: 9,
-    name: "Sephora Favorites Clean Me Up Makeup and Skincare Value Set",
-    price: 5000,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
-  },
-  {
-    id: 10,
-    name: "Dior Forever Skin Stick — Цвет 1N Neutral",
-    price: 6189.24,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
-  },
-  {
-    id: 11,
-    name: "Sol de Janeiro Perfume Mist — Set Mist",
-    price: 3815.73,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
-  },
-  {
-    id: 12,
-    name: "Sol de Janeiro Bum Bum — Jet Set",
-    price: 3591.27,
-    image: "https://www.sephora.com/productimages/sku/s2834646-main-zoom.jpg?imwidth=230"
+    name: "Sol de Janeiro Mist Set",
+    price: 3815,
+    image: "https://www.sephora.com/productimages/sku/s2639092-main-zoom.jpg"
   }
 ];
 
@@ -87,42 +62,39 @@ function App() {
   }, []);
 
   const handleBuy = (product) => {
-    if (tg) {
-      tg.sendData(JSON.stringify(product));
-    } else {
-      alert("This app should be opened inside Telegram to work properly.");
-    }
+    tg?.sendData(JSON.stringify(product));
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <h1 className="text-xl font-bold mb-4">Магазин косметики</h1>
-      <div className="grid grid-cols-1 gap-4">
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={16}
+        slidesPerView={1}
+      >
         {products.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white p-4 rounded-xl shadow-md flex items-center justify-between"
-          >
-            <div className="flex items-center gap-4">
+          <SwiperSlide key={item.id}>
+            <div className="bg-white p-4 rounded-xl shadow-md flex flex-col items-center">
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-16 h-16 object-cover rounded-lg"
+                className="w-60 h-60 object-cover rounded-xl mb-4"
               />
-              <div>
-                <h2 className="font-semibold">{item.name}</h2>
-                <p className="text-sm text-gray-500">{item.price} ₽</p>
-              </div>
+              <h2 className="text-lg font-semibold mb-2">{item.name}</h2>
+              <p className="text-gray-600 mb-2">{item.price} ₽</p>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                onClick={() => handleBuy(item)}
+              >
+                Купить
+              </button>
             </div>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-              onClick={() => handleBuy(item)}
-            >
-              Купить
-            </button>
-          </div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </div>
   );
 }
