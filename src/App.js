@@ -94,3 +94,31 @@ function App() {
       <div className="grid grid-cols-1 gap-4">
         {products.map((item) => (
           <div
+            key={item.id}
+            className="bg-white p-4 rounded-xl shadow-md flex items-center justify-between"
+          >
+            <div className="flex items-center gap-4">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-16 h-16 object-cover rounded-lg"
+              />
+              <div>
+                <h2 className="font-semibold">{item.name}</h2>
+                <p className="text-sm text-gray-500">{item.price} ₽</p>
+              </div>
+            </div>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+              onClick={() => handleBuy(item)}
+            >
+              Купить
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
