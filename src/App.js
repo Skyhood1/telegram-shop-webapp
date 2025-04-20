@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 
-const tg = window.Telegram.WebApp;
+const tg = window.Telegram && window.Telegram.WebApp;
 
 const products = [
   {
@@ -80,12 +80,18 @@ const products = [
 
 function App() {
   useEffect(() => {
-    tg.ready();
-    tg.expand();
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
   }, []);
 
   const handleBuy = (product) => {
-    tg.sendData(JSON.stringify(product));
+    if (tg) {
+      tg.sendData(JSON.stringify(product));
+    } else {
+      alert("This app should be opened inside Telegram to work properly.");
+    }
   };
 
   return (
